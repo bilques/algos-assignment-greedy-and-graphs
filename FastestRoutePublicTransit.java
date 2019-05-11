@@ -24,18 +24,102 @@ public class FastestRoutePublicTransit {
    * @param freq freq[u][v] How frequently is the train that stops at u on its way to v
    * @return shortest travel time between S and T
    */
-  public int myShortestTravelTime(
-    int S,
-    int T,
-    int startTime,
-    int[][] lengths,
-    int[][] first,
-    int[][] freq
-  ) {
-    // Your code along with comments here. Feel free to borrow code from any
-    // of the existing method. You can also make new helper methods.
-    return 0;
-  }
+	public int myShortestTravelTime(
+
+		    int S,
+
+		    int T,
+
+		    int startTime,
+
+		    int[][] lengths,
+
+		    int[][] first,
+
+		    int[][] freq
+
+		  ) {
+
+
+		   int numberOfStops = lengths[0].length;
+
+
+
+		   int[] numberOfCrossing = new int[numberOfStops];
+
+
+
+		   Boolean[] haveVisitedThisStop = new Boolean[numberOfStops];
+
+		   for (int i = 0; i < numberOfStops; i++) {
+
+		     haveVisitedThisStop[i] = false;
+
+		     numberOfCrossing[i] = 999999;
+
+		   }
+
+		   numberOfCrossing[S] = 0;
+
+		   int trainScheduled=0;
+
+		   int totalTime=0;
+
+		   for (int i = 0; i < numberOfStops - 1 ; i++) {
+
+		       startTime += totalTime; 
+
+
+		     int nextTrainForPassengers = findNextToProcess(numberOfCrossing, haveVisitedThisStop);
+
+		     haveVisitedThisStop[nextTrainForPassengers] = true;
+
+
+		     for (int j = 0; j < numberOfStops; j++) {
+
+		       
+
+		       if(!haveVisitedThisStop[j] && first[nextTrainForPassengers][j]!=0 ){  
+
+		         trainScheduled=first[nextTrainForPassengers][j];
+
+		       
+
+		         while(trainScheduled<startTime){    
+
+		           trainScheduled=trainScheduled+freq[nextTrainForPassengers][j];
+
+		         }
+
+		          int waitTime= trainScheduled-startTime; 
+
+		          totalTime=lengths[nextTrainForPassengers][j]+waitTime;
+
+
+		       if (numberOfCrossing[nextTrainForPassengers] != 999999 
+
+		          && numberOfCrossing[nextTrainForPassengers]+totalTime < numberOfCrossing[j] 
+
+		          && !haveVisitedThisStop[j] 
+
+		          && lengths[nextTrainForPassengers][j]!= 0) {
+
+
+		         numberOfCrossing[j] = numberOfCrossing[nextTrainForPassengers] + totalTime;   
+
+
+		       }
+
+		     }
+
+		   }
+
+		   }
+
+		    return numberOfCrossing[T];
+
+
+		  }
 
   /**
    * Finds the vertex with the minimum time from the source that has not been
