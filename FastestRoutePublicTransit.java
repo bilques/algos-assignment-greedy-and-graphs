@@ -209,5 +209,31 @@ public class FastestRoutePublicTransit {
     t.shortestTime(lengthTimeGraph, 0);
 
     // You can create a test case for your implemented method for extra credit below
+    int firstGraph[][] = new int[][]{
+  	  {0, 8, 0, 0, 0, 0, 0, 4, 0},
+  	  {11, 0, 13, 0, 0, 0, 0, 7, 0},
+  	  {0, 15, 0, 8, 0, 4, 0, 0, 24},
+  	  {0, 0, 12, 0, 13, 8, 0, 0, 0},
+  	  {0, 0, 0, 10, 0, 15, 0, 0, 0},
+  	  {0, 0, 4, 15, 12, 0, 18, 0, 0},
+  	  {0, 0, 0, 0, 0, 25, 0, 15, 8},
+  	  {26, 19, 0, 0, 0, 0, 14, 0, 18},
+  	  {0, 0, 12, 0, 0, 0, 2, 6, 0}
+  	};
+
+  	int freqGraph[][] = new int[][]{
+  	  {0, 4, 0, 0, 0, 0, 0, 12, 0},
+  	  {8, 0, 14, 0, 0, 0, 0, 16, 0},
+  	  {0, 8, 0, 6, 0, 2, 0, 0, 12},
+  	  {0, 0, 4, 0, 7, 6, 0, 0, 0},
+  	  {0, 0, 0, 8, 0, 12, 0, 0, 0},
+  	  {0, 0, 16, 20, 13, 0, 6, 0, 0},
+  	  {0, 0, 0, 0, 0, 6, 0, 8, 12},
+  	  {6, 11, 0, 0, 0, 0, 12, 0, 9},
+  	  {0, 0, 14, 0, 0, 0, 4, 5, 0}
+  	};
+  	FastestRoutePublicTransit test = new FastestRoutePublicTransit();
+  	int graph = test.myShortestTravelTime(2, 3, 50, lengthTimeGraph, firstGraph, freqGraph);
+  	System.out.println("shortest time= " +graph+ " minutes");
   }
 }
